@@ -107,8 +107,87 @@ $(".first-floor-right1 img,.first-floor-right2 img,.first-floor-right3 img,.firs
     $(this).stop().animate({left:0});
 })
 // 注册
-$username = $("#username");
-$username.on("blur",function(){
-    // $(this).parent()
-    console.log($(this).parent().next())
-})
+// 登录
+var submit = document.getElementById("submit");
+console.log(submit);
+submit.addEventListener("click",login);
+var username = document.getElementById("username");
+var password = document.getElementById("password");
+// function login(){
+//     var usr_str = username.value;
+//     var pass_str = password.value;
+//     var data = {
+//         username :usr_str,
+//         password :pass_str
+//     }
+//     ajaxpost("http://localhost/bl/interface/login.php",data)
+//     .then(function(res){  // res => xhr.response;
+//         console.log(res);
+//     })
+// }
+function login(){
+    var user = username.value;
+    var pass = password.value;
+ //    console.log(user,pass);
+ // ajax技术发送；
+     var data = {
+         username : user,
+         password : pass
+     }
+     ajaxPost("http://localhost/bl/interface/login.php",data)
+     .then(function(res){
+         alert(res)
+        //  console.log(res);
+     })
+ }
+
+ // 封装：
+
+ function ajaxPost(url,data){
+
+     return new Promise(function(resolve,reject){
+         var xhr = new XMLHttpRequest();
+         xhr.open("POST",url);
+         console.log(1)
+         xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+         var data_str="";
+         for(var arr in data){
+             if(data_str.length !==0){
+                 data_str += "&";
+             }
+             data_str +=arr+"="+data[arr];
+         }
+
+         xhr.send(data_str)
+         xhr.onreadystatechange = function(){
+             if(xhr.readyState ===4 &xhr.status ===200){
+                resolve(xhr.response);
+                //  console.log(JSON.parse(xhr.response))
+             }
+         }
+     })
+
+ }
+
+
+$(".vip").on("click",function(){
+    
+        $(".right-nav-wrap").animate({
+            right:0,
+        })
+    })
+$(".vip").on("mouseover",function(){
+        $width = $(".right-nav .vip span").css("width")
+        $(".right-nav .vip span").css("display","block").animate({
+            left:$width,
+        })
+       
+        console.log($width)
+        
+})    
+// 右侧导航
+// $(".vip").click(function(){
+//     $(".right-nav").css({
+//         right:200,
+//     })
+// })   

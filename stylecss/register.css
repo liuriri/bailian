@@ -34,11 +34,14 @@ body{
 .form-group:nth-of-type(1){
     margin-top: 56px;
 }
-.form-group .col-sm-4 span{
+/* .form-group .col-sm-4 span{
     height: 36px;
     line-height: 36px;
     color: red;
     display: none;
+} */
+.col-sm-4 .error,.agree-error{
+    color: red;
 }
 
 
