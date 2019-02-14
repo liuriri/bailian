@@ -772,3 +772,8 @@ footer{
 .join a:hover{
     color:  #e6133c;
 }
+/* 百度搜索 */
+#list{
+    position: absolute;
+    background: #fff;
+}

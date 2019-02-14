@@ -108,11 +108,11 @@ $(".first-floor-right1 img,.first-floor-right2 img,.first-floor-right3 img,.firs
 })
 // 注册
 // 登录
-var submit = document.getElementById("submit");
-console.log(submit);
-submit.addEventListener("click",login);
-var username = document.getElementById("username");
-var password = document.getElementById("password");
+// var submit = document.getElementById("submit");
+// console.log(submit);
+// submit.addEventListener("click",login);
+// var username = document.getElementById("username");
+// var password = document.getElementById("password");
 // function login(){
 //     var usr_str = username.value;
 //     var pass_str = password.value;
@@ -129,7 +129,6 @@ function login(){
     var user = username.value;
     var pass = password.value;
  //    console.log(user,pass);
- // ajax技术发送；
      var data = {
          username : user,
          password : pass
@@ -140,9 +139,6 @@ function login(){
         //  console.log(res);
      })
  }
-
- // 封装：
-
  function ajaxPost(url,data){
 
      return new Promise(function(resolve,reject){
@@ -176,18 +172,92 @@ $(".vip").on("click",function(){
             right:0,
         })
     })
-$(".vip").on("mouseover",function(){
-        $width = $(".right-nav .vip span").css("width")
-        $(".right-nav .vip span").css("display","block").animate({
-            left:$width,
-        })
-       
-        console.log($width)
-        
-})    
+$("#btn").on("click",function(){
+
+    $(".right-nav-wrap").animate({
+        right:0,
+    })
+})
+$(".jiao").on("click",function(){
+    
+    $(".right-nav-wrap").animate({
+        right:-268,
+    })
+})
+$(".vip").on(
+        {
+            "mouseover":function(){
+                    $width = $(".right-nav .vip span").css("width")
+                    $(".right-nav .vip span").css("display","block").animate({
+                        left:-50,
+                })
+            },
+            "mouseout" :function(){
+                $(".right-nav .vip span").css("display","none")
+            }
+        }
+)    
 // 右侧导航
 // $(".vip").click(function(){
 //     $(".right-nav").css({
 //         right:200,
 //     })
 // })   
+// 百度搜索
+var inp =  document.getElementById("inp");
+var list = document.getElementById("list");
+var showNum = 3;
+    // inp = inp.value;
+inp.addEventListener("input",handlerSearch);    
+var timer =null;
+function handlerSearch(){
+    timer = setTimeout(function(){
+        var url = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${inp.value}&json=1&p=3&sid=1439_25809_21102_28132_26350_28267_22160&req=2&sc=eb&csor=0&
+        cb=jQuery1102024846973884570933_1547176620844&_=1547176620847`
+        jsonp(url,"cb")
+        .then(function(res){
+            // 把数据插入到li中console.log(res)
+            var html =""
+            console.log(res.s);
+            res.s.every((item,index)=>{
+                    html+=`<li>${item}</li>`
+                // console.log(item);
+                return index<showNum
+            })
+            list.innerHTML = html;
+        })  
+    },100)
+    
+    
+}
+// jsonp
+function jsonp(url,jsonp_key){
+    return new Promise(function(resolve,reject){
+
+          // 函数名随机处理避免占用命名空间，避免冲突;
+
+          var randomName = "_" + Date.now()
+          // console.log(randomName);
+
+          window[randomName] = function(res){
+                // console.log(res);
+                resolve(res);
+          }
+          // 2. 创建并插入script标签;
+          var script = document.createElement("script");
+
+          // 当前url之中是否存在 ? （存在问好表示已经有数据了），我应该用& 去拼接数据，反之则用 ?;
+          url = url + (/\?/.test(url) ? "&" : "?") + jsonp_key + "=" + randomName;
+
+          script.src = url;
+          // 3. 标签放入页面之中;
+          document.body.appendChild(script);
+          // 4. 清理垃圾;
+          script.onload = function(){
+                this.remove();
+
+                window[randomName] = null;
+                delete window[randomName];
+          }
+    })
+}
