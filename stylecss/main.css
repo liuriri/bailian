@@ -200,6 +200,10 @@ header{
     position: absolute;
     top: 0px;
     z-index: 2002;
+    height: 432px;
+    background: #fff;
+    width: 560px;
+    background-color:rgba(0,0,0,0.5);
 }
 
 .two-nav .li-first a{
@@ -230,12 +234,13 @@ header{
 .two-nav .two-min-nav .two-min-nav-wrap div{
     float: left;
     padding: 5px 5px;
+    color: #fff;
 }
-.two-nav .two-min-nav div:nth-of-type(1) ul li{
+/* .two-nav .two-min-nav div:nth-of-type(1) ul li{
     float: left;
     background: none;
     padding: 5px 5px;
-}
+} */
 
 .two-nav li:hover .two-min-nav{
     display: block;
@@ -404,6 +409,12 @@ header{
     padding:0 10px;  
     
 }
+.long-nav li span{
+    width: 140px;
+    height: 140px;  
+    display: inline-block;
+    overflow: hidden;
+}
 .long-nav li img{
     width: 140px;
     text-align: center;
@@ -465,8 +476,8 @@ header{
     left: 2%;
     bottom: 5%;
     background: #fff;
-    /* z-index: 6; */
-    /* display: none; */
+    z-index: 900; 
+    display: none;
   
 }
 .stairs ul li{
@@ -777,3 +788,7 @@ footer{
     position: absolute;
     background: #fff;
 }
+/* 图片动画*/
+.first-floor-right1 img,.first-floor-right2 img,.first-floor-right3 img,.first-floor-right-ul li img,.three-floor-right-ul li img{
+    left:-5
+} 

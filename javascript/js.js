@@ -10,7 +10,7 @@ class Stair{
         this.btns = $(".stairs li");
 
         // 显示高度的临界值;
-        this.showTop = 300;
+        this.showTop = 800;
         // 计算初始数据;
         this.stairsArray = [];
         for(var i = 0 ; i < this.stairs.length ; i ++){
@@ -19,6 +19,7 @@ class Stair{
                     min : ele.offset().top,
                     max : ele.offset().top + ele.height()
                 })
+                console.log(ele.offset().top,ele.height()) 
         }
         // console.log(stairsArray);
         this.bindEvent();
@@ -27,17 +28,12 @@ class Stair{
     bindEvent(){
         $(window).on("scroll",this.toggleBtn.bind(this));
         $(window).on("scroll",this.changeBtnIndex.bind(this));
-        
-        
         this.btns.eq(this.btns.length - 1).on("click",this.goTop.bind(this));
         this.btns.on("click",this.changeStairs.bind(this));
-        
     }
-
     toggleBtn(){
         // console.log(1);
         let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-
         if(scrollTop > this.showTop){
                 this.btn_wrap.show();
         }else{
@@ -87,16 +83,22 @@ class Stair{
         $("html,body").scrollTop(0);
     }
 }
+// 首页楼梯加载数据
 
 var stair = new Stair();
 stair.init();
 // 二级菜单
 // 图片移动
+$(".first-floor-right1 img,.first-floor-right2 img,.first-floor-right3 img,.first-floor-right-ul li img,.three-floor-right-ul li img").on("click",function(){
+    location.href="detail.html"
+
+})
 $(".first-floor-right1 img,.first-floor-right2 img,.first-floor-right3 img,.first-floor-right-ul li img,.three-floor-right-ul li img").hover(function(){
     $(this).stop().animate({
           position:"absolute",
             left:-5
         })
+       
         .parent().siblings().children()
             .stop()
             .animate({
@@ -108,11 +110,11 @@ $(".first-floor-right1 img,.first-floor-right2 img,.first-floor-right3 img,.firs
 })
 // 注册
 // 登录
-// var submit = document.getElementById("submit");
-// console.log(submit);
-// submit.addEventListener("click",login);
-// var username = document.getElementById("username");
-// var password = document.getElementById("password");
+var submit = document.getElementById("submit");
+console.log(submit);
+submit.addEventListener("click",login);
+var username = document.getElementById("username");
+var password = document.getElementById("password");
 // function login(){
 //     var usr_str = username.value;
 //     var pass_str = password.value;
@@ -165,7 +167,12 @@ function login(){
 
  }
 
-
+$(".pllogin").on("click",function(){
+    console.log(1);
+    $(".right-nav-wrap").animate({
+        right:0,
+    })
+})
 $(".vip").on("click",function(){
     
         $(".right-nav-wrap").animate({
